@@ -1,0 +1,181 @@
+/* Startup: Bihar Bhoomi Digital 
+   Developer: @kushwaha 
+   Design: Modern Sidebar Logo & Soft Theme
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Hind:wght@400;600&display=swap');
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Poppins', 'Hind', sans-serif; 
+}
+
+body { 
+    background: #f0f4f8 !important; /* सॉफ्ट बैकग्राउंड जो आंखों को सुकून दे */
+    color: #1c1e21; 
+    line-height: 1.6; 
+}
+
+/* --- Top Header (Sidebar Logo Design) --- */
+.navbar { 
+    background: white; 
+    padding: 15px 5%; 
+    border-bottom: 3px solid #1a73e8; 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.logo-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* लोगो और नाम के बीच गैप */
+}
+
+/* स्टाइलिश साइड लोगो आइकन */
+.brand-icon {
+    background: #1a73e8;
+    color: white;
+    width: 55px;
+    height: 55px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 10px rgba(26, 115, 232, 0.2);
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-name { 
+    font-size: 1.8rem; 
+    font-weight: 700; 
+    color: #1a73e8;
+    line-height: 1.1;
+}
+
+.logo-name span { color: #343a40; }
+
+.tagline { 
+    font-size: 0.85rem; 
+    color: #5f6368; 
+    margin-top: 3px;
+}
+
+/* --- Hero Section (Soft Blue Theme) --- */
+.hero { 
+    background: #eef2f7; 
+    padding: 60px 20px; 
+    text-align: center; 
+    border-bottom: 1px solid #d1d9e6;
+}
+
+.hero h1 { font-size: 2.2rem; margin-bottom: 15px; color: #1c1e21; }
+.hero p { color: #5f6368; margin-bottom: 25px; }
+
+.search-container { 
+    display: flex; 
+    max-width: 600px; 
+    margin: 0 auto; 
+    background: white; 
+    border-radius: 50px; /* आधुनिक कैप्सूल डिजाइन */
+    border: 2px solid #1a73e8;
+    overflow: hidden; 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.search-container input { 
+    flex: 1; border: none; padding: 18px 25px; outline: none; font-size: 1rem; 
+}
+
+.btn-search { 
+    background: #28a745; color: white; border: none; padding: 0 30px; 
+    cursor: pointer; font-weight: bold; font-size: 1rem;
+}
+
+.btn-search:hover { background: #218838; }
+
+/* --- Service Cards --- */
+.services-container { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    gap: 20px; 
+    padding: 40px 5%; 
+}
+
+.service-card { 
+    background: white; padding: 25px; border-radius: 15px; 
+    text-align: center; cursor: pointer; transition: 0.3s; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    border-bottom: 3px solid transparent;
+}
+
+.service-card:hover { 
+    transform: translateY(-5px); 
+    border-bottom: 3px solid #1a73e8;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.service-icon { font-size: 2.5rem; margin-bottom: 10px; display: block; }
+
+/* --- Dashboard Table --- */
+.dashboard-card { 
+    background: white; margin: 20px 5% 50px; padding: 30px; 
+    border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+}
+
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 15px; border-bottom: 1px solid #eee; text-align: left; }
+th { background: #f8f9fa; color: #1a73e8; font-weight: 600; }
+
+/* --- Dark Footer (Professional Disclaimer) --- */
+.legal-footer { 
+    background: #1c1e21 !important; 
+    color: #bdc3c7 !important; 
+    padding: 50px 10%; 
+    text-align: center; 
+}
+
+.disclaimer-title { 
+    color: #ffc107 !important; 
+    font-weight: 700; 
+    margin-bottom: 15px; 
+    display: block;
+    font-size: 1.1rem;
+}
+
+.disclaimer-text { 
+    font-size: 0.9rem; 
+    line-height: 1.7; 
+    max-width: 900px;
+    margin: 0 auto 20px auto;
+    text-align: center;
+}
+
+.copyright { 
+    border-top: 1px solid #333; 
+    padding-top: 20px; 
+    font-size: 0.8rem; 
+    color: #7f8c8d; 
+    
+
+}
+
+/* Responsive Fix */
+@media (max-width: 768px) {
+    .logo-wrapper { flex-direction: column; text-align: center; }
+    .hero h1 { font-size: 1.8rem; }
+    .search-container { border-radius: 10px; flex-direction: column; }
+    .btn-search { padding: 15px; }
+}
