@@ -1,6 +1,6 @@
 /* Startup: Bihar Bhoomi Digital 
    Developer: @kushwaha 
-   Design: Modern Sidebar Logo & Soft Theme
+   Design: Modern Mobile-Friendly & Soft Theme
 */
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Hind:wght@400;600&display=swap');
@@ -13,12 +13,12 @@
 }
 
 body { 
-    background: #f0f4f8 !important; /* सॉफ्ट बैकग्राउंड जो आंखों को सुकून दे */
+    background: #f0f4f8 !important; 
     color: #1c1e21; 
     line-height: 1.6; 
 }
 
-/* --- Top Header (Sidebar Logo Design) --- */
+/* --- Top Header --- */
 .navbar { 
     background: white; 
     padding: 15px 5%; 
@@ -35,10 +35,9 @@ body {
 .logo-wrapper {
     display: flex;
     align-items: center;
-    gap: 15px; /* लोगो और नाम के बीच गैप */
+    gap: 15px;
 }
 
-/* स्टाइलिश साइड लोगो आइकन */
 .brand-icon {
     background: #1a73e8;
     color: white;
@@ -51,11 +50,6 @@ body {
     font-weight: 800;
     font-size: 1.1rem;
     box-shadow: 0 4px 10px rgba(26, 115, 232, 0.2);
-}
-
-.brand-text {
-    display: flex;
-    flex-direction: column;
 }
 
 .logo-name { 
@@ -73,23 +67,22 @@ body {
     margin-top: 3px;
 }
 
-/* --- Hero Section (Soft Blue Theme) --- */
+/* --- Hero & Search (Improved for Mobile) --- */
 .hero { 
     background: #eef2f7; 
-    padding: 60px 20px; 
+    padding: 40px 20px; 
     text-align: center; 
     border-bottom: 1px solid #d1d9e6;
 }
 
-.hero h1 { font-size: 2.2rem; margin-bottom: 15px; color: #1c1e21; }
-.hero p { color: #5f6368; margin-bottom: 25px; }
+.hero h1 { font-size: 2rem; margin-bottom: 15px; color: #1c1e21; }
 
 .search-container { 
     display: flex; 
     max-width: 600px; 
-    margin: 0 auto; 
+    margin: 20px auto; 
     background: white; 
-    border-radius: 50px; /* आधुनिक कैप्सूल डिजाइन */
+    border-radius: 50px; 
     border: 2px solid #1a73e8;
     overflow: hidden; 
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
@@ -100,82 +93,110 @@ body {
 }
 
 .btn-search { 
-    background: #28a745; color: white; border: none; padding: 0 30px; 
+    background: #28a745; color: white; border: none; padding: 0 35px; 
     cursor: pointer; font-weight: bold; font-size: 1rem;
+    transition: 0.3s;
 }
 
 .btn-search:hover { background: #218838; }
 
-/* --- Service Cards --- */
+/* --- Service Cards (Centered Text) --- */
 .services-container { 
     display: grid; 
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-    gap: 20px; 
-    padding: 40px 5%; 
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); 
+    gap: 15px; 
+    padding: 30px 5%; 
 }
 
 .service-card { 
-    background: white; padding: 25px; border-radius: 15px; 
+    background: white; padding: 20px; border-radius: 15px; 
     text-align: center; cursor: pointer; transition: 0.3s; 
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     border-bottom: 3px solid transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* मोबाइल पर सेंटर करने के लिए */
 }
 
 .service-card:hover { 
     transform: translateY(-5px); 
     border-bottom: 3px solid #1a73e8;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
-.service-icon { font-size: 2.5rem; margin-bottom: 10px; display: block; }
+.service-icon { font-size: 2.2rem; margin-bottom: 10px; }
 
-/* --- Dashboard Table --- */
+.service-card h3 { font-size: 1.1rem; color: #1a73e8; }
+.service-card p { font-size: 0.85rem; color: #5f6368; }
+
+/* --- Dashboard Table (Scrollable on Mobile) --- */
 .dashboard-card { 
-    background: white; margin: 20px 5% 50px; padding: 30px; 
+    background: white; margin: 20px 5% 40px; padding: 20px; 
     border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+    overflow-x: auto; /* टेबल मोबाइल पर बाहर न निकले */
 }
 
-table { width: 100%; border-collapse: collapse; }
-th, td { padding: 15px; border-bottom: 1px solid #eee; text-align: left; }
-th { background: #f8f9fa; color: #1a73e8; font-weight: 600; }
+table { width: 100%; border-collapse: collapse; min-width: 500px; }
+th, td { padding: 12px; border-bottom: 1px solid #eee; text-align: left; }
+th { background: #f8f9fa; color: #1a73e8; }
 
-/* --- Dark Footer (Professional Disclaimer) --- */
+/* --- Modern Disclaimer Footer --- */
 .legal-footer { 
-    background: #1c1e21 !important; 
-    color: #bdc3c7 !important; 
-    padding: 50px 10%; 
+    background: #2c3e50 !important; /* थोड़ा हल्का काला (Greyish-Dark) */
+    color: #ecf0f1 !important; 
+    padding: 40px 10%; 
     text-align: center; 
 }
 
 .disclaimer-title { 
-    color: #ffc107 !important; 
+    color: #f1c40f !important; 
     font-weight: 700; 
-    margin-bottom: 15px; 
+    margin-bottom: 10px; 
     display: block;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
 }
 
 .disclaimer-text { 
-    font-size: 0.9rem; 
-    line-height: 1.7; 
-    max-width: 900px;
+    font-size: 0.85rem; 
+    line-height: 1.6; 
+    max-width: 800px;
     margin: 0 auto 20px auto;
-    text-align: center;
+    opacity: 0.9;
 }
 
 .copyright { 
-    border-top: 1px solid #333; 
+    border-top: 1px solid rgba(255,255,255,0.1); 
     padding-top: 20px; 
     font-size: 0.8rem; 
-    color: #7f8c8d; 
-    
-
+    color: #bdc3c7; 
 }
 
-/* Responsive Fix */
+/* --- Mobile Specific Fixes --- */
 @media (max-width: 768px) {
-    .logo-wrapper { flex-direction: column; text-align: center; }
-    .hero h1 { font-size: 1.8rem; }
-    .search-container { border-radius: 10px; flex-direction: column; }
-    .btn-search { padding: 15px; }
+    .logo-wrapper { justify-content: center; }
+    .hero h1 { font-size: 1.6rem; }
+    
+    .search-container { 
+        flex-direction: column; 
+        border-radius: 15px; 
+        background: transparent;
+        box-shadow: none;
+        border: none;
+    }
+    
+    .search-container input { 
+        width: 100%; 
+        border-radius: 10px; 
+        margin-bottom: 10px; 
+        border: 2px solid #1a73e8;
+    }
+    
+    .btn-search { 
+        width: 100%; 
+        padding: 15px; 
+        border-radius: 10px; 
+    }
+    
+    .services-container { grid-template-columns: 1fr 1fr; } /* एक लाइन में 2 कार्ड */
+}
+
 }
