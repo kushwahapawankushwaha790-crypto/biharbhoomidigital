@@ -199,4 +199,28 @@ th { background: #f8f9fa; color: #1a73e8; }
     .services-container { grid-template-columns: 1fr 1fr; } /* एक लाइन में 2 कार्ड */
 }
 
+/* WhatsApp Button Styling */
+.wa-share-container {
+    text-align: center;
+    margin: 30px 0;
 }
+
+.wa-btn {
+    background-color: #25D366;
+    color: white !important;
+    padding: 14px 28px;
+    border-radius: 35px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 6px 15px rgba(37, 211, 102, 0.3);
+    transition: 0.3s;
+}
+
+.wa-btn:hover {
+    transform: scale(1.05);
+    background-color: #20ba5a;
+}
+
