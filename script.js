@@ -1,24 +1,18 @@
 /* Project: Bihar Bhoomi Digital 
    Developer: Pawan Bhai
-   Features: 
-   - Google Sheets Sync (History)
-   - Smart AI Voice Assistant (Speech-to-Text)
-   - AI Voice Response (Text-to-Speech)
-   - Auto Link Opener
-   - Excel Export
+   Final Update: Added Bhunaksha, Mutation & AI Voice Responses
 */
 
-// 1. अपनी Google Apps Script का URL यहाँ डालें (अगर है तो)
+// 1. अपनी Google Apps Script का URL यहाँ डालें
 const scriptURL = 'YOUR_GOOGLE_SCRIPT_URL_HERE'; 
 
 let searchHistory = JSON.parse(localStorage.getItem('plotHistory')) || [];
 
-// पेज लोड होते ही हिस्ट्री अपडेट करें
 document.addEventListener('DOMContentLoaded', () => {
     updateTable();
 });
 
-// --- मुख्य सर्च फंक्शन (बटन क्लिक करने पर) ---
+// --- मुख्य सर्च फंक्शन ---
 function searchData() {
     const plotInput = document.getElementById("plotInput");
     const plot = plotInput.value.trim();
@@ -31,7 +25,6 @@ function searchData() {
 
     saveToHistory(plot, "सफल");
 
-    // Google Sheets में डेटा भेजना
     if(scriptURL !== 'YOUR_GOOGLE_SCRIPT_URL_HERE') {
         fetch(scriptURL, {
             method: 'POST',
@@ -45,19 +38,19 @@ function searchData() {
     window.open("https://biharbhumi.bihar.gov.in/Biharbhumi/ViewJamabandi", '_blank');
 }
 
-// --- AI को बोलने की शक्ति देना (Text to Speech) ---
+// --- AI आवाज़ (Text to Speech) ---
 function aiSpeak(text) {
     if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel(); // पुरानी आवाज़ रोकें
         const speech = new SpeechSynthesisUtterance();
         speech.text = text;
-        speech.lang = 'hi-IN'; // शुद्ध हिंदी आवाज़
+        speech.lang = 'hi-IN';
         speech.rate = 1; 
-        speech.pitch = 1;
         window.speechSynthesis.speak(speech);
     }
 }
 
-// --- SMART AI वॉइस सहायक (सुनना और काम करना) ---
+// --- SMART AI सहायक (सुनना और काम करना) ---
 function openAI() {
     const modal = document.getElementById("aiModal");
     const status = document.getElementById("statusText");
@@ -66,62 +59,63 @@ function openAI() {
     modal.style.display = "block";
     resultArea.innerText = "";
     
-    // AI सबसे पहले स्वागत करेगा
-    aiSpeak("नमस्ते! मैं आपकी क्या मदद कर सकती हूँ? आप रसीद, नक्शा या जमाबंदी के बारे में पूछ सकते हैं।");
+    aiSpeak("नमस्ते! मैं आपकी क्या मदद कर सकती हूँ? आप रसीद, नक्शा, जमाबंदी या दाखिल खारिज के बारे में पूछ सकते हैं।");
 
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) {
-        status.innerText = "आपका ब्राउज़र वॉइस सपोर्ट नहीं करता।";
+        status.innerText = "आपका ब्राउज़र सपोर्ट नहीं करता।";
         return;
     }
 
     const recognition = new SpeechRecognition();
     recognition.lang = 'hi-IN';
 
-    recognition.onstart = () => {
-        status.innerText = "सुन रहा हूँ... बोलिये";
-    };
+    recognition.onstart = () => { status.innerText = "सुन रहा हूँ... बोलिये"; };
 
     recognition.onresult = (event) => {
         const transcript = event.results[0][0].transcript.toLowerCase();
         resultArea.innerText = "आपने कहा: " + transcript;
 
-        // --- AI LOGIC: बोलने पर काम करना ---
         setTimeout(() => {
-            if (transcript.includes("रसीद") || transcript.includes("लगान") || transcript.includes("पैसा")) {
+            // 1. रसीद / लगान
+            if (transcript.includes("रसीद") || transcript.includes("लगान")) {
                 aiSpeak("ठीक है, मैं आपके लिए भू लगान पोर्टल खोल रही हूँ।");
                 window.open("https://www.bhulagan.bihar.gov.in/", "_blank");
             } 
+            // 2. नक्शा (वापस जोड़ा गया)
             else if (transcript.includes("नक्शा") || transcript.includes("मैप")) {
                 aiSpeak("ज़रूर, बिहार भू नक्शा पोर्टल अब खुल रहा है।");
                 window.open("https://bhunaksha.bihar.gov.in/", "_blank");
             } 
-            else if (transcript.includes("खाता") || transcript.includes("जमाबंदी") || transcript.includes("रिकॉर्ड")) {
+            // 3. अपना खाता / जमाबंदी
+            else if (transcript.includes("खाता") || transcript.includes("जमाबंदी")) {
                 aiSpeak("जी, मैं आपके लिए अपना खाता पोर्टल खोल रही हूँ।");
                 window.open("https://biharbhumi.bihar.gov.in/", "_blank");
             } 
-            else if (transcript.includes("नमस्ते") || transcript.includes("हेलो")) {
-                aiSpeak("नमस्ते पवन भाई! आपकी वेबसाइट बहुत शानदार काम कर रही है।");
+            // 4. दाखिल खारिज (वापस जोड़ा गया)
+            else if (transcript.includes("दाखिल") || transcript.includes("खारिज") || transcript.includes("म्यूटेशन")) {
+                aiSpeak("जी, मैं आपके लिए दाखिल खारिज की स्थिति चेक करने वाला पेज खोल रही हूँ।");
+                window.open("https://biharbhumi.bihar.gov.in/Biharbhumi/MutationStatusNew", "_blank");
             }
+            // 5. नमस्ते / हेलो
+            else if (transcript.includes("नमस्ते") || transcript.includes("हेलो")) {
+                aiSpeak("नमस्ते पवन भाई! आपकी वेबसाइट बहुत अच्छी तरह काम कर रही है।");
+            }
+            // 6. नंबर पहचानना
             else {
-                // अगर नंबर बोला तो उसे सर्च बॉक्स में डाल दें
                 const onlyNums = transcript.replace(/\D/g, "");
                 if (onlyNums) {
                     document.getElementById("plotInput").value = onlyNums;
-                    aiSpeak("मैंने प्लॉट संख्या डाल दी है, अब खोजें बटन पर क्लिक करें।");
+                    aiSpeak("मैंने प्लॉट संख्या " + onlyNums + " डाल दी है। अब खोजें बटन दबाएं।");
                 } else {
                     aiSpeak("क्षमा करें, मुझे समझ नहीं आया। क्या आप फिर से बोल सकते हैं?");
                 }
             }
-            // 3 सेकंड बाद AI बॉक्स बंद करें
-            setTimeout(closeAI, 2000);
+            setTimeout(closeAI, 2500);
         }, 1000);
     };
 
-    recognition.onerror = () => {
-        status.innerText = "आवाज़ नहीं आई, फिर से कोशिश करें।";
-    };
-
+    recognition.onerror = () => { status.innerText = "आवाज़ नहीं आई..."; };
     recognition.start();
 }
 
@@ -131,11 +125,7 @@ function closeAI() {
 
 // --- हिस्ट्री मैनेजमेंट ---
 function saveToHistory(plot, status) {
-    const entry = {
-        plot: plot,
-        time: new Date().toLocaleTimeString(),
-        status: status
-    };
+    const entry = { plot: plot, time: new Date().toLocaleTimeString(), status: status };
     searchHistory.unshift(entry);
     if (searchHistory.length > 10) searchHistory.pop();
     localStorage.setItem('plotHistory', JSON.stringify(searchHistory));
@@ -145,7 +135,6 @@ function saveToHistory(plot, status) {
 function updateTable() {
     const tableBody = document.getElementById("logTableBody");
     if (!tableBody) return;
-    
     tableBody.innerHTML = searchHistory.map((item, index) => `
         <tr>
             <td>${index + 1}</td>
@@ -157,7 +146,7 @@ function updateTable() {
 }
 
 function clearHistory() {
-    if(confirm("क्या आप सारा इतिहास मिटाना चाहते हैं?")) {
+    if(confirm("इतिहास मिटाएं?")) {
         searchHistory = [];
         localStorage.removeItem('plotHistory');
         updateTable();
@@ -165,25 +154,16 @@ function clearHistory() {
     }
 }
 
-// --- एक्सेल रिपोर्ट डाउनलोड ---
 function exportToExcel() {
     if (searchHistory.length === 0) return alert("डेटा नहीं है!");
-    
-    let csvContent = "data:text/csv;charset=utf-8,No.,Plot Number,Time,Status\n";
-    searchHistory.forEach((row, index) => {
-        csvContent += `${index + 1},${row.plot},${row.time},${row.status}\n`;
-    });
-
-    const encodedUri = encodeURI(csvContent);
+    let csv = "No.,Plot Number,Time,Status\n" + searchHistory.map((r,i) => `${i+1},${r.plot},${r.time},${r.status}`).join("\n");
     const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "Bihar_Bhoomi_Report.csv");
-    document.body.appendChild(link);
+    link.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+    link.download = "Bihar_Bhoomi_Report.csv";
     link.click();
 }
 
-// फ्रॉड स्टेटस चेक
 function checkFraudStatus() {
-    aiSpeak("सावधान! ज़मीन के कागज़ात हमेशा अंचल कार्यालय से ही सत्यापित करवाएं।");
-    alert("🛡️ सुरक्षा टिप: अगर प्लॉट का म्यूटेशन पुराना है, तो रजिस्टर-2 की जांच ज़रूर करें।");
+    aiSpeak("सावधान! ज़मीन के कागज़ात हमेशा अंचल कार्यालय से ही चेक करवाएं।");
+    alert("🛡️ सुरक्षा टिप: म्यूटेशन पुराना है तो रजिस्टर-2 ज़रूर देखें।");
 }
