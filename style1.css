@@ -1,176 +1,40 @@
-/* Startup: Bihar Bhoomi Digital 
-   Developer: @kushwaha 
-   Final Update: Fixed AI Modal & Responsive UI
-*/
-
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Hind:wght@400;600&display=swap');
 
-* { 
-    margin: 0; 
-    padding: 0; 
-    box-sizing: border-box; 
-    font-family: 'Poppins', 'Hind', sans-serif; 
-}
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', 'Hind', sans-serif; }
+body { background: #f0f4f8; color: #1c1e21; line-height: 1.6; }
 
-body { 
-    background: #f0f4f8 !important; 
-    color: #1c1e21; 
-    line-height: 1.6; 
-}
+/* Navigation & Menu */
+.navbar { background: white; padding: 15px 5%; border-bottom: 3px solid #1a73e8; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+.header-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+.logo-wrapper { display: flex; align-items: center; gap: 10px; }
+.brand-icon { background: #1a73e8; color: white; width: 45px; height: 45px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; }
+.logo-name { font-size: 1.4rem; font-weight: 700; color: #1a73e8; }
+.nav-menu { display: flex; list-style: none; gap: 15px; }
+.nav-menu li a { text-decoration: none; color: #333; font-weight: 600; font-size: 0.9rem; transition: 0.3s; }
+.nav-menu li a:hover { color: #1a73e8; }
 
-/* --- Top Header --- */
-.navbar { 
-    background: white; 
-    padding: 15px 5%; 
-    border-bottom: 3px solid #1a73e8; 
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-}
+/* Hero Section */
+.hero { background: #eef2f7; padding: 50px 20px; text-align: center; }
+.search-container { display: flex; max-width: 600px; margin: 20px auto; background: white; border-radius: 50px; border: 2px solid #1a73e8; overflow: hidden; }
+.search-container input { flex: 1; border: none; padding: 15px 20px; outline: none; }
+.btn-search { background: #28a745; color: white; border: none; padding: 0 25px; cursor: pointer; font-weight: bold; }
 
-.header-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
-}
-
-.logo-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.brand-icon {
-    background: #1a73e8;
-    color: white;
-    width: 55px;
-    height: 55px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-    font-size: 1.1rem;
-}
-
-.logo-name { 
-    font-size: 1.8rem; 
-    font-weight: 700; 
-    color: #1a73e8;
-    line-height: 1.1;
-}
-
-.logo-name span { color: #343a40; }
-
-.tagline { font-size: 0.85rem; color: #5f6368; }
-
-/* --- Hero Section --- */
-.hero { 
-    background: #eef2f7; 
-    padding: 40px 20px; 
-    text-align: center; 
-    border-bottom: 1px solid #d1d9e6;
-}
-
-.hero h1 { font-size: 2rem; margin-bottom: 15px; }
-
-.search-container { 
-    display: flex; 
-    max-width: 600px; 
-    margin: 20px auto; 
-    background: white; 
-    border-radius: 50px; 
-    border: 2px solid #1a73e8;
-    overflow: hidden; 
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-.search-container input { flex: 1; border: none; padding: 18px 25px; outline: none; font-size: 1rem; }
-
-.btn-search { 
-    background: #28a745; color: white; border: none; padding: 0 35px; 
-    cursor: pointer; font-weight: bold; transition: 0.3s;
-}
-
-.btn-search:hover { background: #218838; }
-
-.extra-links .btn-link {
-    margin: 5px;
-    padding: 10px 20px;
-    border-radius: 8px;
-    border: 1px solid #1a73e8;
-    background: white;
-    color: #1a73e8;
-    cursor: pointer;
-    font-weight: 600;
-}
-
-/* --- Service Cards --- */
-.services-container { 
-    display: grid; 
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); 
-    gap: 15px; 
-    padding: 30px 5%; 
-}
-
-.service-card { 
-    background: white; padding: 20px; border-radius: 15px; 
-    text-align: center; cursor: pointer; transition: 0.3s; 
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
+/* Service Cards */
+.services-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; padding: 30px 5%; }
+.service-card { background: white; padding: 20px; border-radius: 15px; text-align: center; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
 .service-card:hover { transform: translateY(-5px); }
+.service-icon { font-size: 2rem; display: block; margin-bottom: 10px; }
 
-.service-icon { font-size: 2.2rem; margin-bottom: 10px; }
+/* Modal */
+.modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.75); backdrop-filter: blur(5px); }
+.modal-content { background: white; margin: 15% auto; padding: 30px; border-radius: 20px; width: 85%; max-width: 400px; text-align: center; }
 
-/* --- AI Modal Styling (Crucial Fix) --- */
-.modal {
-    display: none; /* पहले से छुपा रहेगा */
-    position: fixed; 
-    z-index: 9999; 
-    left: 0; top: 0; 
-    width: 100%; height: 100%; 
-    background-color: rgba(0,0,0,0.6); 
-    backdrop-filter: blur(4px);
-}
+/* Footer & WhatsApp */
+.legal-footer { background: #2c3e50; color: white; padding: 30px; text-align: center; margin-top: 30px; }
+.wa-btn { background: #25D366; color: white; padding: 10px 20px; border-radius: 25px; text-decoration: none; display: inline-block; margin-top: 15px; font-weight: bold; }
 
-.modal-content {
-    background-color: #fff;
-    margin: 15% auto;
-    padding: 25px;
-    border-radius: 20px;
-    width: 85%;
-    max-width: 400px;
-    text-align: center;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-}
-
-/* --- Footer --- */
-.legal-footer { 
-    background: #2c3e50 !important; 
-    color: #ecf0f1 !important; 
-    padding: 40px 10%; 
-    text-align: center; 
-}
-
-.disclaimer-title { color: #f1c40f !important; font-weight: 700; margin-bottom: 10px; font-size: 1.2rem; }
-
-.disclaimer-text { font-size: 0.85rem; opacity: 0.9; margin-bottom: 20px; }
-
-/* WhatsApp Button */
-.wa-share-container { text-align: center; margin-top: 20px; }
-.wa-btn {
-    background-color: #25D366; color: white !important;
-    padding: 12px 25px; border-radius: 30px; text-decoration: none;
-    font-weight: bold; display: inline-flex; align-items: center; gap: 10px;
-}
-
-/* --- Mobile Specific --- */
+/* Mobile */
 @media (max-width: 768px) {
-    .hero h1 { font-size: 1.6rem; }
-    .search-container { flex-direction: column; background: transparent; border: none; box-shadow: none; }
-    .search-container input { border-radius: 10px; margin-bottom: 10px; border: 2px solid #1a73e8; }
-    .btn-search { border-radius: 10px; padding: 15px; }
-    .services-container { grid-template-columns: 1fr 1fr; }
+    .header-container { flex-direction: column; gap: 10px; }
+    .nav-menu { font-size: 0.8rem; gap: 10px; }
 }
