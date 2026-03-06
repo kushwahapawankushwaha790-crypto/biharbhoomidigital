@@ -4,11 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bihar Bhoomi Digital - बिहार भूमि डिजिटल पोर्टल</title>
-    
-    <meta name="description" content="Bihar Bhoomi Digital - बिहार का सबसे तेज़ और सुरक्षित भूमि पोर्टल। अपना खाता, खतियान और भू-नक्शा यहाँ देखें।">
-    <meta name="keywords" content="Bihar Bhoomi, Digital Bihar, Pawan Kushwaha, Bhumi Portal">
-    <meta name="author" content="Pawan Kushwaha">
-    
     <link rel="stylesheet" href="style1.css">
 </head>
 <body> 
@@ -33,14 +28,24 @@
     <section class="hero">
         <div class="hero-content">
             <h1>ज़मीन का विवरण और सुरक्षा अब एक साथ</h1>
-            <p>प्लॉट संख्या पता है तो लिखें, नहीं तो <b>AI सहायक</b> से पूछें।</p>
+            <p>अपना जिला और ब्लॉक चुनें, फिर प्लॉट संख्या लिखें।</p>
             
-            <div class="search-container">
-               <input type="text" id="plotInput" placeholder="प्लॉट संख्या यहाँ डालें...">
-               <button class="btn-search" onclick="searchData()">खोजें</button>
+            <div class="selection-box">
+                <select id="districtSelect" onchange="updateBlocks()">
+                    <option value="">-- जिला चुनें --</option>
+                </select>
+
+                <select id="blockSelect">
+                    <option value="">-- पहले जिला चुनें --</option>
+                </select>
+
+                <div class="search-container">
+                   <input type="text" id="plotInput" placeholder="प्लॉट संख्या (Optional)...">
+                   <button class="btn-search" onclick="searchData()">खोजें</button>
+                </div>
             </div>
             
-            <div class="extra-links" style="margin-top: 20px;">
+            <div class="extra-links">
                 <button onclick="window.open('https://biharbhumi.bihar.gov.in/Biharbhumi/ViewJamabandi', '_blank')" class="btn-link">नाम से खोजें</button>
                 <button onclick="window.open('https://bhunaksha.bihar.gov.in/', '_blank')" class="btn-link">नक्शा देखें</button>
             </div>
@@ -48,58 +53,49 @@
     </section>
 
     <section id="services-section" class="services-container">
-        <div class="service-card" onclick="openAI()" style="border-top: 5px solid #1a73e8;">
+        <div class="service-card" onclick="openAI()" id="ai-btn">
             <span class="service-icon">🎙️</span>
             <h3>AI सहायक</h3>
             <p>बोल कर मदद लें</p>
         </div>
-
-        <div class="service-card fraud-protection" onclick="checkFraudStatus()" style="border-top: 5px solid #d93025;">
+        <div class="service-card fraud-protection" onclick="checkFraudStatus()">
             <span class="service-icon">🛡️</span>
             <h3>असली या नकली?</h3>
             <p>पेपर जाँचें</p>
         </div>
-
-        <div class="service-card" onclick="window.open('https://www.bhulagan.bihar.gov.in/', '_blank')" style="border-top: 5px solid #fcc419;">
+        <div class="service-card" onclick="window.open('https://www.bhulagan.bihar.gov.in/', '_blank')">
             <span class="service-icon">💰</span>
             <h3>भू-लगान</h3>
             <p>रसीद काटें</p>
         </div>
-
-        <div class="service-card" onclick="window.open('https://biharbhumi.bihar.gov.in/', '_blank')" style="border-top: 5px solid #1a73e8;">
+        <div class="service-card" onclick="window.open('https://biharbhumi.bihar.gov.in/', '_blank')">
             <span class="service-icon">📄</span>
             <h3>अपना खाता</h3>
             <p>रिकॉर्ड देखें</p>
         </div>
-        <div class="service-card" onclick="window.open('https://bhunaksha.bihar.gov.in/', '_blank')" style="border-top: 5px solid #1a73e8;">
-        <span class="service-icon">🗺️</span>
-        <h3>भू-नक्शा</h3>
-        <p>डिजिटल मैप देखें</p>
-    </div>
-    
-    <div class="service-card" onclick="window.open('https://biharbhumi.bihar.gov.in/Biharbhumi/MutationStatusNew', '_blank')" style="border-top: 5px solid #1a73e8;">
-        <span class="service-icon">📍</span>
-        <h3>दाखिल ख़ारिज</h3>
-        <p>काम की स्थिति जानें</p>
-    </div>
+        <div class="service-card" onclick="window.open('https://bhunaksha.bihar.gov.in/', '_blank')">
+            <span class="service-icon">🗺️</span>
+            <h3>भू-नक्शा</h3>
+            <p>डिजिटल मैप देखें</p>
+        </div>
+        <div class="service-card" onclick="window.open('https://biharbhumi.bihar.gov.in/Biharbhumi/MutationStatusNew', '_blank')">
+            <span class="service-icon">📍</span>
+            <h3>दाखिल ख़ारिज</h3>
+            <p>काम की स्थिति जानें</p>
+        </div>
     </section>
 
     <section id="pawan-dashboard">
         <div class="dashboard-card">
             <h2>📊 आपकी खोज का इतिहास</h2>
-            <div class="btn-group" style="margin: 15px 0;">
+            <div class="btn-group">
                 <button onclick="exportToExcel()" class="btn-excel">📥 एक्सेल</button>
                 <button onclick="clearHistory()" class="btn-clear">🗑️ मिटाएं</button>
             </div>
-            <div style="overflow-x:auto;">
+            <div class="table-responsive">
                 <table>
                     <thead>
-                        <tr>
-                            <th>क्र.सं.</th>
-                            <th>प्लॉट संख्या</th>
-                            <th>समय</th>
-                            <th>स्थिति</th>
-                        </tr>
+                        <tr><th>क्र.सं.</th><th>स्थान/प्लॉट</th><th>समय</th><th>स्थिति</th></tr>
                     </thead>
                     <tbody id="logTableBody"></tbody>
                 </table>
@@ -107,43 +103,23 @@
         </div>
     </section>
 
-    <section id="about-section" style="padding: 40px 5%; background: white; margin: 20px 5%; border-radius: 15px;">
-        <h2 style="color: #1a73e8;">हमारे बारे में</h2>
-        <p>Bihar Bhoomi Digital एक आधुनिक पोर्टल है जो बिहार के नागरिकों को उनकी ज़मीन के रिकॉर्ड्स आसानी से खोजने में मदद करता है।</p>
-    </section>
-
-    <section id="contact-section" style="padding: 40px 5%; background: #eef2f7; margin: 20px 5%; border-radius: 15px; text-align: center;">
-        <h2 style="color: #d93025;">संपर्क करें</h2>
-        <p>सहायता के लिए हमें लिखें: <b>support@bbdigital.com</b></p>
-    </section>
-
     <footer class="legal-footer">
         <p>© 2026 | Developed by @kushwaha</p>
         <div class="wa-share-container">
-            <a href="https://api.whatsapp.com/send?text=बिहार भूमि पोर्टल: https://kushwahapawankushwaha790-crypto.github.io/biharbhoomidigital/" target="_blank" class="wa-btn">WhatsApp पर भेजें</a>
+            <a href="https://api.whatsapp.com/send?text=बिहार भूमि पोर्टल..." target="_blank" class="wa-btn">WhatsApp Share</a>
         </div>
     </footer>
 
     <div id="aiModal" class="modal">
         <div class="modal-content">
-            <span onclick="closeAI()" style="float:right; cursor:pointer; font-size:28px;">&times;</span>
+            <span onclick="closeAI()" class="close-modal">&times;</span>
             <h2>🎙️ AI वॉइस सहायक</h2>
-            <div id="micIcon" style="font-size:60px; margin:20px;">🎙️</div>
-            <p id="statusText" style="font-weight:bold; color:#1a73e8;">सुन रहा हूँ... बोलिये</p>
-            
-            <div id="aiGuide" style="background: #f8f9fa; padding: 15px; border-radius: 10px; margin-top: 15px; text-align: left; font-size: 0.85rem;">
-                <p><b>आप ये बोल सकते हैं:</b></p>
-                <ul>
-                    <li>"रसीद काटना है" (भू-लगान खुलेगा)</li>
-                    <li>"नक्शा देखना है" (नक्शा खुलेगा)</li>
-                    <li>"जमाबंदी देखना है" (अपना खाता खुलेगा)</li>
-                </ul>
-            </div>
-            <div id="aiResultArea" style="margin-top: 15px; font-weight: bold; color: #28a745;"></div>
+            <div id="micIcon">🎙️</div>
+            <p id="statusText">सुन रहा हूँ...</p>
+            <div id="aiResultArea"></div>
         </div>
     </div>
 
     <script src="script.js"></script>
 </body>
 </html>
-
