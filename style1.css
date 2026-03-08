@@ -1,37 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Hind:wght@400;600&display=swap');
 
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', 'Hind', sans-serif; }
-body { background: #f0f4f8; color: #1c1e21; overflow-x: hidden; }
+body { background: #f0f4f8; color: #1c1e21; }
 
-/* Navbar */
 .navbar { background: white; padding: 15px 5%; border-bottom: 3px solid #1a73e8; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
-.logo-wrapper { display: flex; align-items: center; gap: 10px; }
-.brand-icon { background: #1a73e8; color: white; width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; }
 .logo-name { font-size: 1.2rem; font-weight: 700; color: #1a73e8; }
-.nav-menu { display: flex; list-style: none; gap: 15px; }
+.nav-menu { display: flex; gap: 15px; list-style: none; }
 .nav-menu a { text-decoration: none; color: #333; font-weight: 600; }
 
-/* Selection Box */
 .hero { padding: 40px 20px; text-align: center; background: #eef2f7; }
 .selection-box { background: white; padding: 25px; border-radius: 20px; max-width: 500px; margin: 20px auto; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-.selection-box select { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 10px; border: 1px solid #ccc; outline: none; }
+.selection-box select { width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 10px; border: 1px solid #ccc; outline: none; }
 
 .search-container { display: flex; border: 2px solid #1a73e8; border-radius: 50px; overflow: hidden; background: white; }
-.search-container input { flex: 1; border: none; padding: 12px 20px; outline: none; }
+.search-container input { flex: 1; border: none; padding: 10px 20px; outline: none; }
 .btn-search { background: #28a745; color: white; border: none; padding: 0 20px; cursor: pointer; font-weight: bold; }
 
-/* Services */
 .services-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; padding: 20px 5%; }
-.service-card { background: white; padding: 20px; border-radius: 15px; text-align: center; cursor: pointer; transition: 0.3s; border-top: 5px solid #1a73e8; box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
+.service-card { background: white; padding: 20px; border-radius: 15px; text-align: center; cursor: pointer; border-top: 5px solid #1a73e8; box-shadow: 0 4px 8px rgba(0,0,0,0.05); transition: 0.3s; }
 .service-card:hover { transform: translateY(-5px); }
 
-/* Modal & AI result */
-.modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); }
-.modal-content { background: white; margin: 10% auto; padding: 25px; border-radius: 20px; width: 90%; max-width: 400px; text-align: center; }
-.result-box { background: #f1f3f4; padding: 15px; border-radius: 10px; margin: 15px 0; min-height: 50px; font-weight: 600; color: #1a73e8; }
-.ai-guide { text-align: left; background: #fff3cd; padding: 10px; border-radius: 10px; font-size: 0.85rem; }
+.modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); }
+.modal-content { background: white; margin: 10% auto; padding: 25px; border-radius: 20px; width: 90%; max-width: 400px; text-align: center; position: relative; }
+.close-modal { position: absolute; right: 20px; top: 10px; font-size: 28px; cursor: pointer; }
 
-/* Tables */
+.pulse { font-size: 50px; margin: 15px; animation: pulse-red 2s infinite; }
+@keyframes pulse-red { 0% { transform: scale(0.95); } 70% { transform: scale(1.1); } 100% { transform: scale(0.95); } }
+
+.result-box { background: #f1f3f4; padding: 10px; border-radius: 10px; margin: 10px 0; color: #1a73e8; font-weight: bold; min-height: 40px; }
+.ai-guide { text-align: left; background: #fff3cd; padding: 10px; border-radius: 10px; font-size: 0.85rem; border: 1px solid #ffeeba; }
+
 .dashboard-card { background: white; margin: 20px 5%; padding: 20px; border-radius: 15px; overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; }
 th, td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
