@@ -1,12 +1,12 @@
-/* Bihar Bhoomi Digital - Pawan Kushwaha */
+/* Bihar Bhoomi Digital Portal - Final Fixed JS */
 
 const locationData = {
-    "Araria": ["Araria", "Forbesganj", "Jokihat"],
-    "Arwal": ["Arwal", "Kaler", "Karpi"],
-    "Aurangabad": ["Aurangabad", "Barun", "Daudnagar"],
-    "Patna": ["Patna Sadar", "Bihta", "Danapur", "Phulwari Sharif"],
-    "Muzaffarpur": ["Mushahari", "Kanti", "Motipur"],
-    "Gaya": ["Gaya Town", "Bodh Gaya", "Sherghati"]
+    "Araria": ["Araria", "Forbesganj", "Jokihat", "Raniganj"],
+    "Arwal": ["Arwal", "Kaler", "Karpi", "Kurtha"],
+    "Aurangabad": ["Aurangabad", "Barun", "Daudnagar", "Obra"],
+    "Patna": ["Patna Sadar", "Bihta", "Danapur", "Phulwari Sharif", "Sampatchak"],
+    "Muzaffarpur": ["Mushahari", "Kanti", "Motipur", "Sakra"],
+    "Gaya": ["Gaya Town", "Bodh Gaya", "Sherghati", "Dobhi"]
 };
 
 let searchHistory = JSON.parse(localStorage.getItem('plotHistory')) || [];
@@ -34,7 +34,7 @@ function updateBlocks() {
     }
 }
 
-// --- AI आवाज़ ---
+// AI Voice Function - Removed Name
 function aiSpeak(text) {
     if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
@@ -44,25 +44,22 @@ function aiSpeak(text) {
     }
 }
 
-// --- AI सहायक का काम ---
 function openAI() {
     const modal = document.getElementById("aiModal");
     const resultArea = document.getElementById("aiResultArea");
     const status = document.getElementById("statusText");
 
     modal.style.display = "block";
-    resultArea.innerText = "तैयार हो रहा हूँ...";
-    aiSpeak("नमस्ते पवन भाई! मैं आपकी क्या मदद कर सकती हूँ?");
+    resultArea.innerText = "...";
+    
+    // जनरल वेलकम मैसेज
+    aiSpeak("नमस्ते! मैं आपकी क्या मदद कर सकती हूँ? आप रसीद, नक्शा या दाखिल खारिज के बारे में पूछ सकते हैं।");
 
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SpeechRecognition) {
-        status.innerText = "Browser not supported";
-        return;
-    }
+    if (!SpeechRecognition) return;
 
     const recognition = new SpeechRecognition();
     recognition.lang = 'hi-IN';
-
     recognition.onstart = () => { status.innerText = "मैं सुन रही हूँ... बोलिये"; };
 
     recognition.onresult = (event) => {
@@ -70,23 +67,28 @@ function openAI() {
         resultArea.innerHTML = "आपने कहा: " + transcript;
 
         setTimeout(() => {
-            if (transcript.includes("रसीद") || transcript.includes("लगान")) {
-                aiSpeak("ठीक है, भू-लगान पोर्टल खोल रही हूँ।");
+            // दाखिल खारिज की पहचान को सुधारा गया
+            if (transcript.includes("दाखिल") || transcript.includes("खारिज") || transcript.includes("म्युटेशन")) {
+                aiSpeak("जी, दाखिल खारिज की स्थिति वाला पेज खोल रही हूँ।");
+                window.open("https://biharbhumi.bihar.gov.in/Biharbhumi/MutationStatusNew", "_blank");
+            } 
+            else if (transcript.includes("रसीद") || transcript.includes("लगान") || transcript.includes("पैसा")) {
+                aiSpeak("ठीक है, भू-लगान पोर्टल खुल रहा है।");
                 window.open("https://www.bhulagan.bihar.gov.in/", "_blank");
             } 
             else if (transcript.includes("नक्शा") || transcript.includes("मैप")) {
-                aiSpeak("जी, बिहार भू-नक्शा पोर्टल खुल रहा है।");
+                aiSpeak("जी, बिहार भू-नक्शा पोर्टल खोल रही हूँ।");
                 window.open("https://bhunaksha.bihar.gov.in/", "_blank");
             } 
-            else if (transcript.includes("दाखिल") || transcript.includes("खारिज")) {
-                aiSpeak("दाखिल खारिज की स्थिति चेक करने वाला पेज खोल रही हूँ।");
-                window.open("https://biharbhumi.bihar.gov.in/Biharbhumi/MutationStatusNew", "_blank");
+            else if (transcript.includes("खाता") || transcript.includes("जमाबंदी")) {
+                aiSpeak("मैं आपके लिए अपना खाता पोर्टल खोल रही हूँ।");
+                window.open("https://biharbhumi.bihar.gov.in/", "_blank");
             }
             else {
-                aiSpeak("क्षमा करें, मुझे समझ नहीं आया। कृपया दोबारा बोलें।");
+                aiSpeak("क्षमा करें, मुझे समझ नहीं आया। कृपया गाइड में दिए गए शब्द बोलें।");
             }
-            setTimeout(closeAI, 2500);
-        }, 1000);
+            setTimeout(closeAI, 3000);
+        }, 800);
     };
     recognition.start();
 }
@@ -100,7 +102,7 @@ function searchData() {
 
     if (!dist || !block) return alert("कृपया जिला और ब्लॉक चुनें!");
 
-    const info = `${dist}, ${block} ${plot ? '(P:'+plot+')' : ''}`;
+    const info = `${dist}, ${block} ${plot ? '(प्लॉट:'+plot+')' : ''}`;
     saveToHistory(info, "सफल");
     window.open("https://biharbhumi.bihar.gov.in/Biharbhumi/ViewJamabandi", '_blank');
 }
@@ -125,4 +127,4 @@ function exportToExcel() {
 }
 
 function clearHistory() { searchHistory = []; localStorage.removeItem('plotHistory'); updateTable(); }
-function checkFraudStatus() { alert("सावधान! हमेशा सरकारी रिकॉर्ड ही चेक करें।"); }
+function checkFraudStatus() { alert("सावधान! हमेशा सरकारी पोर्टल (biharbhumi.bihar.gov.in) पर ही भरोसा करें।"); }
