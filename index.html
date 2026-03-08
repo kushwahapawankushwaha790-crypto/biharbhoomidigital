@@ -12,15 +12,12 @@
         <div class="header-container">
             <div class="logo-wrapper">
                 <div class="brand-icon">BBD</div> 
-                <div class="brand-text">
-                    <div class="logo-name">Bihar Bhoomi <span>Digital</span></div>
-                </div>
+                <div class="logo-name">Bihar Bhoomi <span>Digital</span></div>
             </div>
             <ul class="nav-menu">
                 <li><a href="#">Home</a></li>
                 <li><a href="#services-section">Services</a></li>
-                <li><a href="#about-section">About</a></li>
-                <li><a href="#contact-section">Contact</a></li>
+                <li><a href="#pawan-dashboard">History</a></li>
             </ul>
         </div>
     </nav>
@@ -28,60 +25,56 @@
     <section class="hero">
         <div class="hero-content">
             <h1>ज़मीन का विवरण और सुरक्षा अब एक साथ</h1>
-            <p>अपना जिला और ब्लॉक चुनें, फिर प्लॉट संख्या लिखें।</p>
-            
             <div class="selection-box">
                 <select id="districtSelect" onchange="updateBlocks()">
                     <option value="">-- जिला चुनें --</option>
                 </select>
-
                 <select id="blockSelect">
-                    <option value="">-- पहले जिला चुनें --</option>
+                    <option value="">-- ब्लॉक चुनें --</option>
                 </select>
-
                 <div class="search-container">
                    <input type="text" id="plotInput" placeholder="प्लॉट संख्या (Optional)...">
                    <button class="btn-search" onclick="searchData()">खोजें</button>
                 </div>
             </div>
-            
-            <div class="extra-links">
-                <button onclick="window.open('https://biharbhumi.bihar.gov.in/Biharbhumi/ViewJamabandi', '_blank')" class="btn-link">नाम से खोजें</button>
-                <button onclick="window.open('https://bhunaksha.bihar.gov.in/', '_blank')" class="btn-link">नक्शा देखें</button>
-            </div>
         </div>
     </section>
 
     <section id="services-section" class="services-container">
-        <div class="service-card" onclick="openAI()" id="ai-btn">
+        <div class="service-card" onclick="openAI()" style="border-top-color: #1a73e8;">
             <span class="service-icon">🎙️</span>
             <h3>AI सहायक</h3>
             <p>बोल कर मदद लें</p>
         </div>
-        <div class="service-card fraud-protection" onclick="checkFraudStatus()">
-            <span class="service-icon">🛡️</span>
-            <h3>असली या नकली?</h3>
-            <p>पेपर जाँचें</p>
-        </div>
-        <div class="service-card" onclick="window.open('https://www.bhulagan.bihar.gov.in/', '_blank')">
-            <span class="service-icon">💰</span>
-            <h3>भू-लगान</h3>
-            <p>रसीद काटें</p>
-        </div>
-        <div class="service-card" onclick="window.open('https://biharbhumi.bihar.gov.in/', '_blank')">
-            <span class="service-icon">📄</span>
-            <h3>अपना खाता</h3>
-            <p>रिकॉर्ड देखें</p>
-        </div>
-        <div class="service-card" onclick="window.open('https://bhunaksha.bihar.gov.in/', '_blank')">
+
+        <div class="service-card" onclick="window.open('https://bhunaksha.bihar.gov.in/', '_blank')" style="border-top-color: #1a73e8;">
             <span class="service-icon">🗺️</span>
             <h3>भू-नक्शा</h3>
             <p>डिजिटल मैप देखें</p>
         </div>
-        <div class="service-card" onclick="window.open('https://biharbhumi.bihar.gov.in/Biharbhumi/MutationStatusNew', '_blank')">
+
+        <div class="service-card" onclick="window.open('https://biharbhumi.bihar.gov.in/Biharbhumi/MutationStatusNew', '_blank')" style="border-top-color: #1a73e8;">
             <span class="service-icon">📍</span>
             <h3>दाखिल ख़ारिज</h3>
             <p>काम की स्थिति जानें</p>
+        </div>
+
+        <div class="service-card" onclick="window.open('https://www.bhulagan.bihar.gov.in/', '_blank')" style="border-top-color: #fcc419;">
+            <span class="service-icon">💰</span>
+            <h3>भू-लगान</h3>
+            <p>रसीद काटें</p>
+        </div>
+
+        <div class="service-card" onclick="window.open('https://biharbhumi.bihar.gov.in/', '_blank')" style="border-top-color: #1a73e8;">
+            <span class="service-icon">📄</span>
+            <h3>अपना खाता</h3>
+            <p>रिकॉर्ड देखें</p>
+        </div>
+
+        <div class="service-card fraud-protection" onclick="checkFraudStatus()" style="border-top-color: #d93025;">
+            <span class="service-icon">🛡️</span>
+            <h3>असली या नकली?</h3>
+            <p>पेपर जाँचें</p>
         </div>
     </section>
 
@@ -92,31 +85,31 @@
                 <button onclick="exportToExcel()" class="btn-excel">📥 एक्सेल</button>
                 <button onclick="clearHistory()" class="btn-clear">🗑️ मिटाएं</button>
             </div>
-            <div class="table-responsive">
-                <table>
-                    <thead>
-                        <tr><th>क्र.सं.</th><th>स्थान/प्लॉट</th><th>समय</th><th>स्थिति</th></tr>
-                    </thead>
-                    <tbody id="logTableBody"></tbody>
-                </table>
-            </div>
+            <table>
+                <thead>
+                    <tr><th>क्र.सं.</th><th>स्थान/प्लॉट</th><th>समय</th><th>स्थिति</th></tr>
+                </thead>
+                <tbody id="logTableBody"></tbody>
+            </table>
         </div>
     </section>
-
-    <footer class="legal-footer">
-        <p>© 2026 | Developed by @kushwaha</p>
-        <div class="wa-share-container">
-            <a href="https://api.whatsapp.com/send?text=बिहार भूमि पोर्टल..." target="_blank" class="wa-btn">WhatsApp Share</a>
-        </div>
-    </footer>
 
     <div id="aiModal" class="modal">
         <div class="modal-content">
             <span onclick="closeAI()" class="close-modal">&times;</span>
             <h2>🎙️ AI वॉइस सहायक</h2>
-            <div id="micIcon">🎙️</div>
-            <p id="statusText">सुन रहा हूँ...</p>
-            <div id="aiResultArea"></div>
+            <div id="micIcon">🎤</div>
+            <p id="statusText">सुन रहा हूँ... बोलिये</p>
+            <div id="aiResultArea" class="result-box"></div>
+            <div class="ai-guide">
+                <p><b>आप ये बोल सकते हैं:</b></p>
+                <ul>
+                    <li>"रसीद काटना है"</li>
+                    <li>"नक्शा देखना है"</li>
+                    <li>"जमाबंदी देखना है"</li>
+                    <li>"दाखिल खारिज"</li>
+                </ul>
+            </div>
         </div>
     </div>
 
